@@ -1,34 +1,143 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// void main() {
+//   runApp(MaterialApp(
+//     home: MyHomePage(isLoading: true, counter: 0),
+//   ));
+//   // Scaffold.of(context).showBottomSheet(
+//   //       (context) => Text('Flutter From Zero to Hero'),
+//   // );
+// }
+
 void main() {
-  // runApp( MaterialApp(
-  //   home: SafeArea(
-  //   child: Scaffold( appBar: AppBar(
-  //       backgroundColor: Colors.pink, // set màu background cho app bar
-  //       title: Text('Cua nàng Flutter') // title của app bar
-  //     ),
-  //       body: Center(child: Text('Hi, pls nice to me!')
-  //         )
-  //       ),
-  //   ),
-  // ));
   runApp(MaterialApp(
-    home: MyHomePage(isLoading: true, counter: 0),
+    initialRoute: '/',
+    routes: <String, WidgetBuilder>{
+      '/': (context) => HomePage(),
+      '/widgets': (context) => WidgetsScreen(),
+      '/assets': (context) => AssetsScreen(),
+      '/view': (context) => ViewScreen(),
+      '/viewgroup': (context) => ViewGroupScreen()
+    },
   ));
-  // Scaffold.of(context).showBottomSheet(
-  //       (context) => Text('Flutter From Zero to Hero'),
-  // );
+}
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/widgets');
+          },
+          child: Text('widgets'),
+        ),
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/assets');
+          },
+          child: Text('assets'),
+        ),
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/view');
+          },
+          child: Text('view'),
+        ),
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/viewgroup');
+          },
+          child: Text('viewgroup'),
+        ),
+      ],
+      ),
+    );
+  }
 }
 
-// class MyHomePage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       floatingActionButton: MyButtonWidget(),
-//     );
-//   }
-// }
+class WidgetsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('WidgetsScreen'),
+      ),
+      body: new Center(
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go Back'),
+        ),
+      ),
+    );
+  }
+}
+
+class AssetsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('AssetsScreen'),
+      ),
+      body: new Center(
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go Back'),
+        ),
+      ),
+    );
+  }
+}
+class ViewScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ViewScreen'),
+      ),
+      body: new Center(
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go Back'),
+        ),
+      ),
+    );
+  }
+}
+
+class ViewGroupScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('ViewGroupScreen'),
+      ),
+      body: new Center(
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go Back'),
+        ),
+      ),
+    );
+  }
+}
+
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -39,7 +148,6 @@ class MyHomePage extends StatefulWidget {
   final int counter;
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return MyHomepageState();
     throw UnimplementedError();
   }
