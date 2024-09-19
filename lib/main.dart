@@ -15,7 +15,7 @@ void main() {
     initialRoute: '/',
     routes: <String, WidgetBuilder>{
       '/': (context) => HomePage(),
-      '/widgets': (context) => WidgetsScreen(),
+      '/widgets': (context) => WidgetsScreen(isLoading: false, counter: 0),
       '/assets': (context) => AssetsScreen(),
       '/view': (context) => ViewScreen(),
       '/viewgroup': (context) => ViewGroupScreen()
@@ -29,56 +29,116 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Home'),
       ),
-      body: new Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/widgets');
-          },
-          child: Text('widgets'),
-        ),
-        FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/assets');
-          },
-          child: Text('assets'),
-        ),
-        FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/view');
-          },
-          child: Text('view'),
-        ),
-        FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/viewgroup');
-          },
-          child: Text('viewgroup'),
-        ),
-      ],
+      body: buildRow(context),
+    );
+  }
+
+  Row buildRow(BuildContext context) {
+    return new Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/widgets');
+        },
+        child: Text('widgets'),
       ),
+      FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/assets');
+        },
+        child: Text('assets'),
+      ),
+      FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/view');
+        },
+        child: Text('view'),
+      ),
+      FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/viewgroup');
+        },
+        child: Text('viewgroup'),
+      ),
+    ],
     );
   }
 }
 
-class WidgetsScreen extends StatelessWidget {
+class WidgetsScreen extends StatefulWidget {
+
+  const WidgetsScreen({
+    required this.isLoading,
+    required this.counter,
+  });
+
+  final bool isLoading;
+  final int counter;
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return WidgetScreenState();
+    throw UnimplementedError();
+  }
+}
+
+class WidgetScreenState extends State<WidgetsScreen> {
+  late bool _isLoading;
+  late int _counter;
+
+  @override
+  void initState() {
+    super.initState();
+    // widget is the 
+    _isLoading = widget.isLoading;
+    _counter = widget.counter;
+  }
+
   @override
   Widget build(BuildContext context) {
+    print('rebuild WidgetScreen by StatefulWidget');
+    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text('WidgetsScreen'),
       ),
-      body: new Center(
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go Back'),
-        ),
+      body: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Go Back'),
+            ),
+            CounterWidget(
+              isLoading: _isLoading,
+              counter: _counter,
+            ),
+
+          ]
+      ),
+      // floatingActionButton: MyButtonWidget(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: onFloatingButtonClicked,
       ),
     );
+    throw UnimplementedError();
   }
+  void onFloatingButtonClicked() {
+    print('Button clicked!. Call setState method');
+    setState(() {
+      _counter++;
+      if (_counter % 2 == 0) {
+        _isLoading = false;
+      } else {
+        _isLoading = true;
+      }
+    });
+  }
+
 }
 
 class AssetsScreen extends StatelessWidget {
