@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'view_group_screen.dart';
 
 // void main() {
 //   runApp(MaterialApp(
@@ -91,7 +92,7 @@ class WidgetScreenState extends State<WidgetsScreen> {
   @override
   void initState() {
     super.initState();
-    // widget is the 
+    // widget is the
     _isLoading = widget.isLoading;
     _counter = widget.counter;
   }
@@ -178,24 +179,7 @@ class ViewScreen extends StatelessWidget {
   }
 }
 
-class ViewGroupScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ViewGroupScreen'),
-      ),
-      body: new Center(
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go Back'),
-        ),
-      ),
-    );
-  }
-}
+
 
 
 
